@@ -1,15 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react';
+// import {GoogleMapLoader, GoogleMap} from 'react-google-maps';
+// // import ReactDOM from 'react-dom';
 
-const GoogleMap = (props) => {
-	// const videoItems = props.videos.map((video) => {
-	// 	return <VideoListItem video = {video} />
-	// });
-	// return (
-	// 	<ul className="col-md-4 list-group">
-	// 		{videoItems}
-	// 	</ul>
-	// );
+class GoogleMap extends Component {
+ 	componentDidMount(){
+ 		new google.maps.Map(this.refs.map, {		
+	 		zoom:12,
+	 		center:{
+	 			lat: 40,
+	 			lng: -76
+	 		}
+ 		});
+ 	}
+	render(){
+ 		//this.ref.map
+ 		return <div ref="map" />;
+	}
 };
 
 export default GoogleMap;

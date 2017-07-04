@@ -5,7 +5,10 @@ import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
-const API_KEY = 'AIzaSyAGD352Uy7zH5XMLZ__x2XyuMyUOxVDLgQ';
+// import GoogleMap from './components/google_map';
+// import { withGoogleMap, GoogleMap } from "react-google-maps";
+
+const API_KEY = 'AIzaSyAGD352Uy7zH5XMLZ__x2XyuMyUOxVDLgQ';// youtube API_key
 
 // import App from './components/app';
 // import { Provider } from 'react-redux';
@@ -21,7 +24,7 @@ class App extends Component{
 		};
 
 		this.videoSearch('surfboards'); // pass initial term 
-
+			
 		// YTSearch( {key:API_KEY, term: 'surfboards'}, (videos) => {
 		// 	// console.log(videos);
 		// 	this.setState({
@@ -43,6 +46,21 @@ class App extends Component{
 
 	render(){
 		const videoSearch = _.debounce( (term) => {this.videoSearch(term)} , 300);
+
+
+
+		// const GettingStartedGoogleMap = withGoogleMap(props => (
+		//   <GoogleMap
+		//     ref={props.onMapLoad}
+		//     defaultZoom={3}
+		//     defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
+		//     onClick={props.onMapClick}
+		//   >
+
+		//   </GoogleMap>
+		// ));
+
+
 		return (
 			<div>
 				<SearchBar onSearchTermChange = {videoSearch} /> 
@@ -54,7 +72,7 @@ class App extends Component{
 	}
 }
 
-ReactDOM.render(<App /> , document.querySelector('.container'));  //<App /> : must use object not class and put in the index.html id 'container'
+ReactDOM.render(<App />, document.querySelector('.container'));  //<App /> : must use object not class and put in the index.html id 'container'
 // { } for JSX syntax use
 
 //VideoList onVideoSelect = {selectedVideo => this.setState( {selectedVideo} ) }
