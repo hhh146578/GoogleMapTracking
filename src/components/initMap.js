@@ -1,53 +1,74 @@
+var marker;
+var map;
+var flightPath;
+var lineCoords = [];
+ 
+lat = 22.6;
+lng = 120.34;
+
+var datalat = [];
+var datalng = [];
+
+for(var i = 0; i < 1000; i++){
+  datalat[i] = i / 10000 + lat;    
+  datalng[i] = i / 10000 + lng;    
+}
 
 function initialize() {
-  var myLatLng = {lat: 22.6, lng: 120.34};
-  var toLatLng = {lat: 22.61, lng: 120.35};
+  // var myLatLng = {lat: 22.6, lng: 120.34};
+  // var toLatLng = {lat: 22.61, lng: 120.35};
+  lat = datalat[0];
+  lng = datalng[0];
 
-  var map = new google.maps.Map(document.getElementById("map_canvas"), {
-      center: myLatLng,
+  map = new google.maps.Map(document.getElementById("map_canvas"), {
+      center: {lat: lat, lng: lng},
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 
-  var marker1 = new google.maps.Marker({
-    position: myLatLng,
+  marker = new google.maps.Marker({
+    position: {lat: lat, lng: lng},
     map: map 
   });
+
+  // var marker1 = new google.maps.Marker({
+  //   position: myLatLng,
+  //   map: map 
+  // });
       
-  var marker2 = new google.maps.Marker({
-    position: toLatLng,
-    map: map
-  });
+  // var marker2 = new google.maps.Marker({
+  //   position: toLatLng,
+  //   map: map
+  // });
+  // var dist = getDistanceFromLatLonInKm(myLatLng.lat, myLatLng.lon, toLatLng.lat, toLatLng.lng);
 
-  var dist = getDistanceFromLatLonInKm(myLatLng.lat, myLatLng.lon, toLatLng.lat, toLatLng.lng);
+  // var flightPlanCoordinates = [
+  //   myLatLng,
+  //   toLatLng
+  // ];
+  console.log("init---");
+}
 
-  var flightPlanCoordinates = [
-    myLatLng,
-    toLatLng
-  ];
-  var flightPath = new google.maps.Polyline({
-    path: flightPlanCoordinates,
+var i = 0;
+
+function redraw(){
+  map.setCenter({lat:lat, lng:lng, alt:0});
+  marker.setPosition({lat:lat, lng:lng, alt:0});
+
+  lineCoords.push(new google.maps.LatLng(lat, lng));
+  flightPath = new google.maps.Polyline({
+    path: lineCoords,
     geodesic: true,
     strokeColor: '#FF0000',
     strokeOpacity: 1.0,
     strokeWeight: 2
   });
-
+  console.log("redraw");
   flightPath.setMap(map);
+  i = i + 1;
+  lat = datalat[i] + 0;
+  lng = datalng[i] + 0;
 }
-
-
-// var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-// var beachMarker = new google.maps.Marker({
-//   position: {lat: -33.890, lng: 151.274},
-//   map: map,
-//   icon: image
-// });
-
-// function changeMarkerPosition(marker) {
-//   var latlng = new google.maps.LatLng(-24.397, 140.644);
-//   marker.setPosition(latlng);
-// }
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   var R = 6371; // Radius of the earth in km
@@ -69,17 +90,16 @@ function deg2rad(deg) {
 
 google.maps.event.addDomListener(window, "load", initialize);
 
-// function initMap() {
-//   var myLatLng = {lat: -25.363, lng: 131.044};
+setInterval(redraw, 2000);
 
-//   var map = new google.maps.Map(document.getElementById('map'), {
-//     zoom: 4,
-//     center: myLatLng
-//   });
+// var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+// var beachMarker = new google.maps.Marker({
+//   position: {lat: -33.890, lng: 151.274},
+//   map: map,
+//   icon: image
+// });
 
-//   var marker = new google.maps.Marker({
-//     position: myLatLng,
-//     map: map,
-//     title: 'Hello World!'
-//   });
+// function changeMarkerPosition(marker) {
+//   var latlng = new google.maps.LatLng(-24.397, 140.644);
+//   marker.setPosition(latlng);
 // }

@@ -24,7 +24,7 @@ class App extends Component{
 		};
 
 		this.videoSearch('surfboards'); // pass initial term 
-			
+
 		// YTSearch( {key:API_KEY, term: 'surfboards'}, (videos) => {
 		// 	// console.log(videos);
 		// 	this.setState({
@@ -46,21 +46,6 @@ class App extends Component{
 
 	render(){
 		const videoSearch = _.debounce( (term) => {this.videoSearch(term)} , 300);
-
-
-
-		// const GettingStartedGoogleMap = withGoogleMap(props => (
-		//   <GoogleMap
-		//     ref={props.onMapLoad}
-		//     defaultZoom={3}
-		//     defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
-		//     onClick={props.onMapClick}
-		//   >
-
-		//   </GoogleMap>
-		// ));
-
-
 		return (
 			<div>
 				<SearchBar onSearchTermChange = {videoSearch} /> 
